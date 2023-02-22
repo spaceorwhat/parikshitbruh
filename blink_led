@@ -1,0 +1,55 @@
+#include "stm32f4xx.h"
+void TIM3_IRQHandler(void);
+int main()
+{
+  
+  //Enable the GPIOD clock
+  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD,ENABLE);  
+    
+  //GPIOD Configuration  
+  GPIO_InitTypeDef GP2,GP3,GP4,GP5;
+  
+  GP2.GPIO_Pin=GPIO_Pin_12;
+  GP2.GPIO_Mode=GPIO_Mode_OUT;
+  GP2.GPIO_OType=GPIO_OType_PP;
+  GP2.GPIO_PuPd=GPIO_PuPd_UP;
+  GP2.GPIO_Speed=GPIO_Speed_50MHz;
+  GPIO_Init(GPIOD,&GP2);
+  
+  //formula-   prescalar(Hz)/clockfequency(hz) * time period(ms) = interrupt time(s)
+  //42,000/42,000,000*2000=2 s interrupt
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);//enable clock pulse to timer
+  TIM_TimeBaseInitTypeDef timeobject;//making timer object
+  timeobject.TIM_Prescaler=41999; //timer will tick every 0.001s and prescalar value is 42000-1
+  timeobject.TIM_CounterMode=TIM_CounterMode_Up;
+  timeobject.TIM_Period=999;//timer max value is 2000-1
+  timeobject.TIM_ClockDivision=TIM_CKD_DIV1;
+
+  TIM_TimeBaseInit(TIM3,&timeobject);//initialize timer configurations
+  NVIC_InitTypeDef NVICobject;   //NVIC
+  NVICobject.NVIC_IRQChannel=TIM3_IRQn;
+  NVICobject.NVIC_IRQChannelPreemptionPriority=0x00;
+  NVICobject.NVIC_IRQChannelSubPriority=0x00;
+  NVICobject.NVIC_IRQChannelCmd=ENABLE;
+  NVIC_Init(&NVICobject);
+  
+  TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);
+
+  TIM_Cmd(TIM3,ENABLE); //start time
+   
+  TIM3_IRQHandler();    
+  
+  while(1){
+     
+  };
+  
+  return 0;
+}
+void TIM3_IRQHandler(void)
+{
+  // Clear TIM3 update interrupt
+  TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
+  //toggle led 
+  GPIO_ToggleBits(GPIOD,GPIO_Pin_12);
+    
+}
