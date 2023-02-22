@@ -1,0 +1,20 @@
+#include "stm32f4xx.h"
+int main()
+{
+  
+  //Enable the GPIOD clock
+  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD,ENABLE);  
+    
+  //GPIOD Configuration  
+  GPIO_InitTypeDef GP2;
+  
+  GP2.GPIO_Pin=GPIO_Pin_12;
+  GP2.GPIO_Mode=GPIO_Mode_OUT;
+  GP2.GPIO_OType=GPIO_OType_PP;
+  GP2.GPIO_PuPd=GPIO_PuPd_UP;
+  GP2.GPIO_Speed=GPIO_Speed_50MHz;
+  GPIO_Init(GPIOD,&GP2);
+  
+  //GPIOD-pin on
+  GPIO_SetBits(GPIOD,GPIO_Pin_12);
+  }
