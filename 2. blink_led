@@ -33,7 +33,7 @@ int main()
   NVICobject.NVIC_IRQChannelCmd=ENABLE;
   NVIC_Init(&NVICobject);
   
-  TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);
+  TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE); 
 
   TIM_Cmd(TIM3,ENABLE); //start time
    
