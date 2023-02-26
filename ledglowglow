@@ -17,4 +17,5 @@ int main()
   
   //GPIOD-pin on
   GPIO_SetBits(GPIOD,GPIO_Pin_12);
+  return 0;
   }
