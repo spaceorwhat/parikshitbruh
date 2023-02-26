@@ -50,6 +50,5 @@ void TIM3_IRQHandler(void)
   // Clear TIM3 update interrupt
   TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
   //toggle led 
-  GPIO_ToggleBits(GPIOD,GPIO_Pin_12);
-    
+  GPIO_ToggleBits(GPIOD,GPIO_Pin_12);   
 }
