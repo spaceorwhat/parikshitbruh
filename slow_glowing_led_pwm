@@ -29,7 +29,7 @@ int main()
 
   TIM_OCInitTypeDef OCobject; //Making Output compare object
    
-  OCobject.TIM_OCMode=TIM_OCMode_PWM1;
+  OCobject.TIM_OCMode=TIM_OCMode_PWM1; 
   OCobject.TIM_OutputState=TIM_OutputState_Enable; 
   OCobject.TIM_Pulse=0;
   OCobject.TIM_OCPolarity=TIM_OCPolarity_High;
