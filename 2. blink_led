@@ -7,7 +7,7 @@ int main()
   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD,ENABLE);  
     
   //GPIOD Configuration  
-  GPIO_InitTypeDef GP2,GP3,GP4,GP5;
+  GPIO_InitTypeDef GP2;
   
   GP2.GPIO_Pin=GPIO_Pin_12;
   GP2.GPIO_Mode=GPIO_Mode_OUT;
