@@ -22,7 +22,7 @@ int main()
   TIM_TimeBaseInitTypeDef timeobject;//making timer object
   timeobject.TIM_Prescaler=41999; //timer will tick every 0.001s and prescalar value is 42000-1
   timeobject.TIM_CounterMode=TIM_CounterMode_Up;
-  timeobject.TIM_Period=999;//timer max value is 2000-1
+  timeobject.TIM_Period=999;//timer max value is 1000-1
   timeobject.TIM_ClockDivision=TIM_CKD_DIV1;
 
   TIM_TimeBaseInit(TIM3,&timeobject);//initialize timer configurations
